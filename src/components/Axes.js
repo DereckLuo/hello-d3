@@ -5,9 +5,9 @@ export default ({ scales, margins, svgDimensions, }) => {
     const { height, width } = svgDimensions
 
     const xPropsRight = {
-        orient: 'Top',
+        orient: 'Bottom',
         scale: scales.xScale,
-        translate: `translate(0, ${margins.top - 1})`,
+        translate: `translate(0, ${height - margins.top})`,
         tickSize: height - margins.top - margins.bottom,
     }
 

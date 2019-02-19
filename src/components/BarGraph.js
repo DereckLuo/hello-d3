@@ -2,14 +2,9 @@ import React, { Component } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import Axes from './Axes'
 import Bars from './Bars'
+import { data, margins, svgDimensions } from '../libs/data'
 
-const data = [
-    { price: 10, amount: 100 },
-    { price: 20, amount: 200 },
-    { price: 30, amount: 300 },
-    { price: 40, amount: 250 },
-    { price: 50, amount: 80 },
-]
+
 
 class BarChart extends Component {
     constructor() {
@@ -19,27 +14,21 @@ class BarChart extends Component {
     }
 
     render() {
-        const margins = { top: 50, right: 30, bottom: 100, left: 20 };
-
-        const svgDimensions = {
-            width: 500,
-            height: 500
-        }
-
+        const { width, height } = svgDimensions;
         const maxValue = Math.max(...data.map(d => d.amount))
 
-        // scaleBand type
+        // scaleLinear type
         const xScale = this.xScale
             .domain([0, maxValue])
-            .range([margins.left, svgDimensions.width - margins.right])
+            .range([margins.left, width - margins.right])
 
-        // scaleLinear type
+        // scaleBand type
         const yScale = this.yScale
             .domain(data.map(d => d.price, 2))
-            .range([svgDimensions.height - margins.bottom, margins.top])
+            .range([margins.bottom, height - margins.top])
 
         return (
-            <svg width={svgDimensions.width} height={svgDimensions.height}>
+            <svg width={width} height={height}>
                 <Axes
                     scales={{ xScale, yScale }}
                     margins={margins}
